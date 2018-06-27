@@ -16,8 +16,6 @@ import java.util.Map;
 
 public class PowerapiService {
     private SurefireDao surefireDao = SurefireDao.getInstance();
-
-
     private PowerapiDao powerapiDao = PowerapiDao.getInstance();
 
     /**

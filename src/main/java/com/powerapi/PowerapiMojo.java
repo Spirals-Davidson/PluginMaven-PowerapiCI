@@ -1,32 +1,66 @@
 package com.powerapi;
 
+import com.powerapi.dao.GitDao;
 import com.powerapi.service.PowerapiService;
 import com.powerapi.utils.CommonUtils;
 import com.powerapi.utils.Logger;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Says "Hi" to the user.
  */
-@Mojo(name = "runtest")
+@Mojo(name = "test")
 public class PowerapiMojo extends AbstractMojo {
-    private PowerapiService powerapiService = new PowerapiService();
 
+    @Parameter(property = "test.build")
+    private String build;
+
+    @Parameter(property = "test.esUrl")
+    private String esUrl;
+
+    @Parameter(property = "test.commit")
+    private String commit;
+
+    @Parameter(property = "test.scm")
+    private String scm;
+
+    @Parameter(property = "test.frequency")
+    private Integer frequency;
+
+    @Parameter(property = "test.jenkins")
+    private String jenkins;
+
+    private PowerapiService powerapiService = new PowerapiService();
+    private GitDao gitDao = GitDao.getInstance();
 
     private List<String> powerapiCSVList = new ArrayList<>();
     private List<String> testCSVList = new ArrayList<>();
 
-    public void execute()  {
+    public void execute() throws MojoExecutionException {
         Logger.setLog(getLog());
 
+        if(build == null) throw new MojoExecutionException("No build name found, type: -Dtest.build=\"build_name\"");
+        else if(esUrl == null) throw new MojoExecutionException("No ElasticSearch url found, type: -Dtest.esUrl=\"ElasticSearch url serveur\"");
+        else if(frequency == null) throw new MojoExecutionException("No frequency found, type: -Dtest.frequency=[50-oo]");
+
+        if(commit == null) {
+            Logger.warning("No commit name: work with git for have commit name");
+            commit = gitDao.getCommitName();
+            Logger.info("Commit name: "+commit);
+        }
+
+        Long beginApp = new Date().getTime();
+
         executes();
-        powerapiService.sendPowerapiciData(125412451, "MASTER", "40", "unname", "uneurl", powerapiCSVList, testCSVList);
+        powerapiService.sendPowerapiciData(beginApp, "MASTER", build, commit, scm, powerapiCSVList, testCSVList);
 
         getLog().info("Data send");
     }
@@ -49,10 +83,5 @@ public class PowerapiMojo extends AbstractMojo {
         } catch (IOException | InterruptedException e) {
             getLog().error("", e);
         }
-
-
     }
-
-
-
 }

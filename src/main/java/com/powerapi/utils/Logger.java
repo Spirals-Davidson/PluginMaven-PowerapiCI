@@ -6,23 +6,32 @@ public class Logger {
     private static Logger logger = null;
     private static Log log;
 
-    public static void setLog(Log log){
+    public static void setLog(Log log) {
         Logger.log = log;
     }
 
-    public static void info(String message){
+    public static void info(String message) {
         log.info(message);
     }
 
-    public static void error(String message){
+    public static void error(String message) {
         log.error(message);
     }
 
-    public static void info(String message, Throwable throwable){
+    public static void warning(String message) {
+        log.warn(message);
+    }
+
+    public static void info(String message, Throwable throwable) {
         log.info(message, throwable);
     }
 
-    public static void error(String message, Throwable throwable){
+    public static void error(String message, Throwable throwable) {
         log.error(message, throwable);
+    }
+
+
+    public static void warning(String message, Throwable throwable) {
+        log.warn(message, throwable);
     }
 }
