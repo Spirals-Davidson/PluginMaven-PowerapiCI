@@ -29,8 +29,8 @@ public class PowerapiMojo extends AbstractMojo {
     @Parameter(property = "test.commit")
     private String commit;
 
-    @Parameter(property = "test.scm")
-    private String scm;
+    @Parameter
+    private String scmUrl;
 
     @Parameter(property = "test.frequency")
     private Integer frequency;
@@ -49,7 +49,8 @@ public class PowerapiMojo extends AbstractMojo {
 
         if(build == null) throw new MojoExecutionException("No build name found, type: -Dtest.build=\"build_name\"");
         else if(esUrl == null) throw new MojoExecutionException("No ElasticSearch url found, type: -Dtest.esUrl=\"ElasticSearch url serveur\"");
-        else if(frequency == null) throw new MojoExecutionException("No frequency found, type: -Dtest.frequency=[50-oo]");
+        else if(scmUrl == null) throw new MojoExecutionException("No scm url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
+        else if(frequency == null) throw new MojoExecutionException("No frequency found, type: -Dtest.frequency=[0-oo]");
 
         if(commit == null) {
             Logger.warning("No commit name: work with git for have commit name");
@@ -60,7 +61,7 @@ public class PowerapiMojo extends AbstractMojo {
         Long beginApp = new Date().getTime();
 
         executes();
-        powerapiService.sendPowerapiciData(beginApp, "MASTER", build, commit, scm, powerapiCSVList, testCSVList);
+        powerapiService.sendPowerapiciData(beginApp, "MASTER", build, commit, scmUrl, powerapiCSVList, testCSVList);
 
         getLog().info("Data send");
     }
