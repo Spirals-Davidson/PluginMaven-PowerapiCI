@@ -66,15 +66,16 @@ public class PowerapiMojo extends AbstractMojo {
             Logger.warning("No frequence found, the plugin will work with 50ms frequency");
             frequency = 50;
         }
-        if (build == null) {
-            Logger.warning("No build name found, your build name will be the commit name");
-        }
+
         if (commit == null) {
             Logger.warning("No commit name: work with git for have commit name");
             commit = gitDao.getCommitName();
             Logger.info("Commit name: " + commit);
         }
-
+        if (build == null) {
+            Logger.warning("No build name found, your build name will be the commit name");
+            build = commit;
+        }
         Properties.setFrequency(frequency);
         Properties.setEsUrl(esUrl);
 
