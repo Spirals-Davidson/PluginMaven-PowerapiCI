@@ -68,16 +68,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.powerapi</groupId>
-                <artifactId>powerapi-maven-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <configuration>
-                    <scmUrl>https://github.com/adrien1251/spring-boot-rest-example</scmUrl>
-                </configuration>
-            </plugin>
-
-            <!-- ======================================================================================== -->
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>${maven.apache.version}</version>
