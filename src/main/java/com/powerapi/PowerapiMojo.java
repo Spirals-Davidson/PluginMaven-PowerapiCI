@@ -51,9 +51,8 @@ public class PowerapiMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         Logger.setLog(getLog());
 
-        if (build == null)
-            throw new MojoExecutionException("No build name found, type: -Dtest.build=\"build_name\"");
-        else if (esUrl == null)
+
+        if (esUrl == null)
             throw new MojoExecutionException("No ElasticSearch url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
         else if (scmUrl == null)
             throw new MojoExecutionException("No scm url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
@@ -67,7 +66,9 @@ public class PowerapiMojo extends AbstractMojo {
             Logger.warning("No frequence found, the plugin will work with 50ms frequency");
             frequency = 50;
         }
-
+        if (build == null) {
+            Logger.warning("No build name found, your build name will be the commit name");
+        }
         if (commit == null) {
             Logger.warning("No commit name: work with git for have commit name");
             commit = gitDao.getCommitName();
@@ -80,6 +81,7 @@ public class PowerapiMojo extends AbstractMojo {
         Long beginApp = new Date().getTime();
 
         for(int i=0; i<nbIterations; i++) {
+            getLog().info("En cours d'execution... Iteration "+i);
             executes();
         }
         powerapiService.sendPowerapiciData(beginApp, "MASTER", build, commit, scmUrl, powerapiCSVList, testCSVList);
@@ -92,7 +94,6 @@ public class PowerapiMojo extends AbstractMojo {
         String[] cmd1 = {"sh", "-c", "(mvn test -DforkCount=0 | grep timestamp= | cut -d '-' -f 2 | tr -d ' ') > test1.csv & (powerapi duration 30 modules procfs-cpu-simple monitor --frequency 50 --console --all | grep muid) > data1.csv;"};
 
         try {
-            getLog().info("En cours d'execution...");
             Process p = Runtime.getRuntime().exec(cmd1);
             getLog().info(CommonUtils.readProcessus(p));
 
