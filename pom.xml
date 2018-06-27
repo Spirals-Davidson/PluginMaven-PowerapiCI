@@ -12,58 +12,56 @@
     <name>Maven plugin for test + powerapi</name>
 
     <properties>
-        <gmavenVersion>1.5</gmavenVersion>
-        <gmavenProviderSelection>2.0</gmavenProviderSelection>
-        <groovyVersion>2.0.0</groovyVersion>
+
+        <lombok.version>1.18.0</lombok.version>
+        <json.version>1.1.2</json.version>
+        <gson.version>2.6.2</gson.version>
+        <glassfish.version>1.1</glassfish.version>
+
+        <maven.apache.version>3.5.2</maven.apache.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.api.version>3.0</maven.api.version>
+        <maven.annotations.version>3.5.2</maven.annotations.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.peichhorn</groupId>
-            <artifactId>lombok-pg</artifactId>
-            <version>0.11.3</version>
-            <scope>provided</scope>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>3.0</version>
+            <version>${maven.api.version}</version>
         </dependency>
 
         <!-- dependencies to annotations -->
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.5.2</version>
+            <version>${maven.annotations.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>
-            <version>1.1.2</version>
+            <version>${json.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
-            <version>1.1</version>
+            <version>${glassfish.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.6.2</version>
+            <version>${gson.version}</version>
         </dependency>
     </dependencies>
 
@@ -87,7 +85,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.5.2</version>
+                <version>${maven.apache.version}</version>
                 <executions>
                     <execution>
                         <id>generated-helpmojo</id>
