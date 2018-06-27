@@ -5,10 +5,11 @@ import com.powerapi.PowerapiData;
 import com.powerapi.TestData;
 import com.powerapi.dao.PowerapiDao;
 import com.powerapi.dao.SurefireDao;
-import com.powerapi.mylib.Constants;
-import com.powerapi.mylib.converter.Converter;
+import com.powerapi.utils.Constants;
+import com.powerapi.converter.Converter;
 import com.powerapi.Entity.ResultatApplication;
-import com.powerapi.mylib.math.Math;
+import com.powerapi.math.Math;
+import com.powerapi.utils.Properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,8 +154,8 @@ public class PowerapiService {
 
                     estimatedEnergyFromBeforeToFirst = Math.convertToJoule((powerBefore + powerFirst) / 2, (double) timeFirst - timeBefore);
                     estimatedEnergyFromLastToAfter = Math.convertToJoule((powerLast + powerAfter) / 2, (double) timeAfter - timeLast);
-                    estimatedEnergyFromBeginToFirst = (estimatedEnergyFromBeforeToFirst * (timeFirst - test.getTimeBeginTest())) / Constants.FREQUENCY;
-                    estimatedEnergyFromLastToEnd = (estimatedEnergyFromLastToAfter * (test.getTimeEndTest() - timeLast)) / Constants.FREQUENCY;
+                    estimatedEnergyFromBeginToFirst = (estimatedEnergyFromBeforeToFirst * (timeFirst - test.getTimeBeginTest())) / Properties.getFrequency();
+                    estimatedEnergyFromLastToEnd = (estimatedEnergyFromLastToAfter * (test.getTimeEndTest() - timeLast)) / Properties.getFrequency();
                     totalEnergy = estimatedEnergyFromBeginToFirst + test.getEnergy() + estimatedEnergyFromLastToEnd;
                 } else if (powerList.size() == 1) {
                     timeFirst = (double) timeList.get(0);
@@ -163,12 +164,12 @@ public class PowerapiService {
                     estimatedEnergyFromBeforeToFirst = Math.convertToJoule((powerBefore + powerFirst) / 2, (double) timeFirst - timeBefore);
                     estimatedEnergyFromFirstToAfter = Math.convertToJoule((powerFirst + powerAfter) / 2, (double) timeAfter - timeFirst);
 
-                    estimatedEnergyFromBeginToFirst = (estimatedEnergyFromBeforeToFirst * (timeFirst - test.getTimeBeginTest())) / Constants.FREQUENCY;
-                    estimatedEnergyFromLFirstToEnd = (estimatedEnergyFromFirstToAfter * (test.getTimeEndTest() - timeFirst)) / Constants.FREQUENCY;
+                    estimatedEnergyFromBeginToFirst = (estimatedEnergyFromBeforeToFirst * (timeFirst - test.getTimeBeginTest())) / Properties.getFrequency();
+                    estimatedEnergyFromLFirstToEnd = (estimatedEnergyFromFirstToAfter * (test.getTimeEndTest() - timeFirst)) / Properties.getFrequency();
                     totalEnergy = estimatedEnergyFromBeginToFirst + estimatedEnergyFromLFirstToEnd;
                 } else {
                     estimatedEnergyFromBeforeToAfter = Math.convertToJoule((powerBefore + powerAfter) / 2, (double) timeAfter - timeBefore);
-                    estimatedEnergyFromBeginToEnd = (estimatedEnergyFromBeforeToAfter * (test.getTimeEndTest() - test.getTimeBeginTest())) / Constants.FREQUENCY;
+                    estimatedEnergyFromBeginToEnd = (estimatedEnergyFromBeforeToAfter * (test.getTimeEndTest() - test.getTimeBeginTest())) / Properties.getFrequency();
 
                     totalEnergy = estimatedEnergyFromBeginToEnd;
                 }

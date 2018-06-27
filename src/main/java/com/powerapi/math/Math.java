@@ -1,4 +1,4 @@
-package com.powerapi.mylib.math;
+package com.powerapi.math;
 
 public class Math {
 

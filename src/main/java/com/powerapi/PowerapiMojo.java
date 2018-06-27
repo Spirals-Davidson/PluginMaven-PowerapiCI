@@ -4,6 +4,7 @@ import com.powerapi.dao.GitDao;
 import com.powerapi.service.PowerapiService;
 import com.powerapi.utils.CommonUtils;
 import com.powerapi.utils.Logger;
+import com.powerapi.utils.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -23,14 +24,14 @@ public class PowerapiMojo extends AbstractMojo {
     @Parameter(property = "test.build")
     private String build;
 
-    @Parameter(property = "test.esUrl")
-    private String esUrl;
-
     @Parameter(property = "test.commit")
     private String commit;
 
     @Parameter
     private String scmUrl;
+
+    @Parameter
+    private String esUrl;
 
     @Parameter(property = "test.frequency")
     private Integer frequency;
@@ -47,16 +48,26 @@ public class PowerapiMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         Logger.setLog(getLog());
 
-        if(build == null) throw new MojoExecutionException("No build name found, type: -Dtest.build=\"build_name\"");
-        else if(esUrl == null) throw new MojoExecutionException("No ElasticSearch url found, type: -Dtest.esUrl=\"ElasticSearch url serveur\"");
-        else if(scmUrl == null) throw new MojoExecutionException("No scm url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
-        else if(frequency == null) throw new MojoExecutionException("No frequency found, type: -Dtest.frequency=[0-oo]");
+        if (build == null)
+            throw new MojoExecutionException("No build name found, type: -Dtest.build=\"build_name\"");
+        else if (esUrl == null)
+            throw new MojoExecutionException("No ElasticSearch url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
+        else if (scmUrl == null)
+            throw new MojoExecutionException("No scm url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
 
-        if(commit == null) {
+        if (frequency == null) {
+            Logger.warning("No frequence found, the plugin will work with 50ms frequency");
+            frequency = 50;
+        }
+
+        if (commit == null) {
             Logger.warning("No commit name: work with git for have commit name");
             commit = gitDao.getCommitName();
-            Logger.info("Commit name: "+commit);
+            Logger.info("Commit name: " + commit);
         }
+
+        Properties.setFrequency(frequency);
+        Properties.setEsUrl(esUrl);
 
         Long beginApp = new Date().getTime();
 
@@ -67,7 +78,7 @@ public class PowerapiMojo extends AbstractMojo {
     }
 
     private void executes() {
-       // String[] cmd = {"sh", "-c", "echo toto > untest.csv; (mvn test -DforkCount=0 | grep timestamp= | cut -d '-' -f 2 | tr -d ' ') > test1.csv & powerapi duration 30 modules procfs-cpu-simple monitor --frequency 50 --console --pids \\$! | grep muid) > data1.csv;"};
+        // String[] cmd = {"sh", "-c", "echo toto > untest.csv; (mvn test -DforkCount=0 | grep timestamp= | cut -d '-' -f 2 | tr -d ' ') > test1.csv & powerapi duration 30 modules procfs-cpu-simple monitor --frequency 50 --console --pids \\$! | grep muid) > data1.csv;"};
         String[] cmd1 = {"sh", "-c", "(mvn test -DforkCount=0 | grep timestamp= | cut -d '-' -f 2 | tr -d ' ') > test1.csv & (powerapi duration 30 modules procfs-cpu-simple monitor --frequency 50 --console --all | grep muid) > data1.csv;"};
 
         try {

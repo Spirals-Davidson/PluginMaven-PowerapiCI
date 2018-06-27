@@ -1,6 +1,6 @@
 package com.powerapi.Entity;
 
-import com.powerapi.mylib.Constants;
+import com.powerapi.utils.Constants;
 import lombok.Getter;
 import lombok.Setter;
 

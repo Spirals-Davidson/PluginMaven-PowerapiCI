@@ -1,4 +1,4 @@
-package com.powerapi.mylib.converter;
+package com.powerapi.converter;
 
 import com.google.gson.Gson;
 import com.powerapi.PowerapiCI;

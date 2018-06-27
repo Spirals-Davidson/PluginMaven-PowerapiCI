@@ -2,9 +2,10 @@ package com.powerapi.dao;
 
 
 import com.powerapi.enums.HttpMethod;
-import com.powerapi.mylib.Constants;
-import com.powerapi.mylib.converter.Converter;
+import com.powerapi.utils.Constants;
+import com.powerapi.converter.Converter;
 import com.powerapi.Entity.ResultatApplication;
+import com.powerapi.utils.Properties;
 
 public class PowerapiDao {
     private static final PowerapiDao INSTANCE =  new PowerapiDao();
@@ -18,7 +19,7 @@ public class PowerapiDao {
     }
 
     public void sendResultat(String index, ResultatApplication resultatApplication) {
-        UtilsDao.executeQuery(Constants.ELASTIC_PATH + index +"/doc", Converter.resultatApplicationToJson(resultatApplication), HttpMethod.POST);
+        UtilsDao.executeQuery(Properties.getEsUrl() + index +"/doc", Converter.resultatApplicationToJson(resultatApplication), HttpMethod.POST);
     }
 
 

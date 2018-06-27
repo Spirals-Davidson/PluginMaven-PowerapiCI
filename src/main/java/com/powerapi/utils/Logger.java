@@ -3,7 +3,6 @@ package com.powerapi.utils;
 import org.apache.maven.plugin.logging.Log;
 
 public class Logger {
-    private static Logger logger = null;
     private static Log log;
 
     public static void setLog(Log log) {
