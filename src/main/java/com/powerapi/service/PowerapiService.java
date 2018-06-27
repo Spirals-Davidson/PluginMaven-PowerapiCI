@@ -192,7 +192,7 @@ public class PowerapiService {
             return;
         }
 
-        String appName = urlScm.substring(urlScm.lastIndexOf("/") + 1, urlScm.length() - 4);
+        String appName = urlScm.substring(urlScm.lastIndexOf("/") + 1);
         Map<String, String> classes = surefireDao.parseSurefireXML();
 
         List<List<PowerapiCI>> powerapiCIList = new ArrayList<>();
