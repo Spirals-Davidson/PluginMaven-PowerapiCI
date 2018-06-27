@@ -136,15 +136,10 @@ public class PowerapiService {
                     }
                 }
 
-                if (allPowerapi.isEmpty()) {
-                    System.out.println("Nom du test vide: " + test.getTestName());
-                }
-
                 for (PowerapiData papiD : allPowerapi) {
                     powerList.add(papiD.getPower());
                     timeList.add(papiD.getTimestamp());
                 }
-
 
                 if (powerList.size() != 0) {
                     timeFirst = (double) timeList.get(0);

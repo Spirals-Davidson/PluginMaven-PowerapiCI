@@ -39,6 +39,9 @@ public class PowerapiMojo extends AbstractMojo {
     @Parameter(property = "test.jenkins")
     private String jenkins;
 
+    @Parameter(property = "test.nbIterations")
+    private Integer nbIterations;
+
     private PowerapiService powerapiService = new PowerapiService();
     private GitDao gitDao = GitDao.getInstance();
 
@@ -54,6 +57,11 @@ public class PowerapiMojo extends AbstractMojo {
             throw new MojoExecutionException("No ElasticSearch url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
         else if (scmUrl == null)
             throw new MojoExecutionException("No scm url found, precise him in our plugin configuration in your pom.xml (saw the doc for more information)");
+
+        if(nbIterations == null){
+            Logger.warning("No iterations number found, so it will be 3 iterations");
+            nbIterations = 3;
+        }
 
         if (frequency == null) {
             Logger.warning("No frequence found, the plugin will work with 50ms frequency");
@@ -71,7 +79,9 @@ public class PowerapiMojo extends AbstractMojo {
 
         Long beginApp = new Date().getTime();
 
-        executes();
+        for(int i=0; i<nbIterations; i++) {
+            executes();
+        }
         powerapiService.sendPowerapiciData(beginApp, "MASTER", build, commit, scmUrl, powerapiCSVList, testCSVList);
 
         getLog().info("Data send");

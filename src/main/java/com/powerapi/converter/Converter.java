@@ -16,7 +16,6 @@ public class Converter {
     }
 
     public static ResultatApplication fillResultatApplication(ResultatApplication resultatApplication, List<List<PowerapiCI>> powerapiCIList, final Map<String, String> classes) {
-        System.out.println(powerapiCIList.get(0).size());
         List<Classe> classeL = new ArrayList<Classe>();
 
         String lastTestName = "";
