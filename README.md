@@ -19,51 +19,50 @@ Add [greenci-handler-plugin](https://github.com/adrien1251/greenci-handler-plugi
 ## Installation
 
 - Clone the repository of this Maven plugin
-  
+- In the project directory:
+  `mvn install`
+  
 - In the Maven .m2 configuration file, add :
 ```
   <PluginGroups>
-       <PluginGroup> com.powerapi </ pluginGroup>
-   </ PluginGroups>
+       <PluginGroup>com.powerapi</pluginGroup>
+   </PluginGroups>
 ```
 
--In the POM.xml of the tested project, add :
+- In the POM.xml of the tested project, add :
 ```
   <plugin>
        <groupId>com.powerapi</groupId>
        <artifactId>powerapi-maven-plugin</artifactId>
        <version>1.0-SNAPSHOT</version>
+       <!-- REQUIERED --> 
        <configuration>
-          <scmUrl>https://github.com/adrien1251/spring-boot-rest-example</scmUrl>
-          <esUrl>http://elasticsearch.app.projet-davidson.fr/</esUrl>
+          <scmUrl>scmUrl like github url, example: https://github.com/Spirals-Davidson/greenci-maven-plugin</scmUrl>
+          <esUrl>Your elasticSearch location url</esUrl>
        </configuration>
   </plugin>
 ```
-
-- In the project directory:
-
-  `mvn install`
 
 ## Usage
 
 - The command to start the process:
 
-  `mvn powerapi: test`
+  `mvn powerapi:test`
   
 
 Available Options : 
 
-  -Dtest.build=buildname
+  -Dtest.commit="commitname"
 
-    buildname takes the commitname if this option is missing
+    By default: git must be installed on the computer, and the actual commit name will be taken
+    
+  -Dtest.build="buildname"
 
-  -Dtest.commit=commitname
-
-    If this option is missing : git must be installed on the computer, and the actual commit will be taken
-
+    By default: the commitname will be take
+    
   -Dtest.frequency=frenquency
 
-    If this option is missing the frenquency will be 50ms
+    By default: the frenquency will be 50ms
 
 
 ## Background
