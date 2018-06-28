@@ -1,5 +1,5 @@
 
-# PowerAPI MAVEN Plugin
+# greenci-maven-plugin
 
 
 This project is a Maven plugin that automates the processing and sending of data related to the PowerAPI tool.
@@ -10,8 +10,10 @@ This project is a Maven plugin that automates the processing and sending of data
 PowerAPI must be installed on your machine beforehand(LINUX OS ONLY):
 https://github.com/Spirals-Team/powerapi/blob/master/README.md
 
-An Elastic Search Server must be available with a PowerAPI index :
+An Elastic Search Server must be available with a `powerapici` index :
 https://www.elastic.co/fr/products/elasticsearch
+
+Add [greenci-handler-plugin](https://github.com/adrien1251/greenci-handler-plugin) to your project. 
 
 
 ## Installation
