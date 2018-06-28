@@ -5,9 +5,6 @@ public enum HttpMethod {
 
     private final String text;
 
-    /**
-     * @param text
-     */
     HttpMethod(final String text) {
         this.text = text;
     }

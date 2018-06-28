@@ -7,15 +7,15 @@ import java.io.InputStreamReader;
 public class CommonUtils {
 
     public static String readProcessus(Process p) throws IOException {
-        String retour = "";
+        String back = "";
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line = "";
+        String line;
         while ((line = reader.readLine()) != null) {
-            retour += line +"\n";
+            back += line +"\n";
         }
         reader.close();
 
-        return retour;
+        return back;
     }
 }

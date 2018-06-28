@@ -19,13 +19,6 @@ public class Methods {
     private long duration;
     private List<Iteration> iterations;
 
-    public Methods(String name, double energy, long duration, List<Iteration> iterations) {
-        this.name = name;
-        this.energy = energy;
-        this.duration = duration;
-        this.iterations = iterations;
-    }
-
     public Methods(String name, long duration) {
         this.name = name;
         this.duration = duration;

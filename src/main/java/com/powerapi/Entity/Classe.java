@@ -14,13 +14,6 @@ public class Classe {
     private long duration;
     private List<Methods> methods;
 
-    public Classe(String name, double energy, long duration, List<Methods> methods) {
-        this.name = name;
-        this.energy = energy;
-        this.duration = duration;
-        this.methods = methods;
-    }
-
     public Classe(String name) {
         this.name = name;
         methods = new ArrayList<>();

@@ -1,14 +1,13 @@
 package com.powerapi.service;
 
-import com.powerapi.PowerapiCI;
-import com.powerapi.PowerapiData;
-import com.powerapi.TestData;
+import com.powerapi.Entity.PowerapiCI;
+import com.powerapi.Entity.PowerapiData;
+import com.powerapi.Entity.ResultatApplication;
+import com.powerapi.Entity.TestData;
 import com.powerapi.dao.PowerapiDao;
 import com.powerapi.dao.SurefireDao;
-import com.powerapi.utils.Constants;
-import com.powerapi.converter.Converter;
-import com.powerapi.Entity.ResultatApplication;
 import com.powerapi.math.Math;
+import com.powerapi.utils.Constants;
 import com.powerapi.utils.Properties;
 
 import java.util.ArrayList;
@@ -207,9 +206,9 @@ public class PowerapiService {
         }
 
 
-        ResultatApplication resultatApplication = new ResultatApplication(debutApp, branch, buildName, commitName, appName, urlScm);
-        resultatApplication = Converter.fillResultatApplication(resultatApplication, powerapiCIList, classes);
+        ResultatApplication resultatApplication = new ResultatApplication(debutApp, branch, buildName, commitName, appName, urlScm)
+                .fillResultatApplication(powerapiCIList, classes);
 
-        powerapiDao.sendResultat(Constants.ACTUAL_INDEX, resultatApplication);
+        powerapiDao.sendResult(Constants.ACTUAL_INDEX, resultatApplication);
     }
 }

@@ -17,13 +17,13 @@ public class GitDao {
 
     public String getCommitName(){
         String[] cmd = {"sh", "-c", "git describe --always"};
-        String retour = "";
+        String back = "";
         try {
             Process powerapiProc = Runtime.getRuntime().exec(cmd);
-            retour += CommonUtils.readProcessus(powerapiProc);
+            back += CommonUtils.readProcessus(powerapiProc);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return retour;
+        return back;
     }
 }

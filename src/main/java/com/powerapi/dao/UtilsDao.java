@@ -24,7 +24,7 @@ public class UtilsDao {
      * @param queryString the query to send
      * @param method      method http to use
      */
-    public static void executeQuery(String url, String queryString, HttpMethod method) {
+    public void executeQuery(String url, String queryString, HttpMethod method) {
         try {
             URL baseUrl = new URL(url);
 
