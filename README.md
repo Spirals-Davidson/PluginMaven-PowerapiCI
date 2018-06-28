@@ -2,8 +2,6 @@
 # PowerAPI MAVEN Plugin
 
 
-# PowerAPI Maven Plugin
-
 This project is a Maven plugin that automates the processing and sending of data related to the PowerAPI tool.
 
 ## REQUIREMENTS
